@@ -1,7 +1,7 @@
 ---
-version: "3.7"
-
 # This Docker composition file is used to build and test the container
+
+name: skeleton-docker
 
 secrets:
   admiral_yml:
@@ -33,6 +33,7 @@ x-admiral-template: &admiral-template
       target: sslmate-api-key.txt
 
 services:
+<<<<<<< HEAD:docker-compose.yml
   celery-flower:
     environment:
       CELERY_BROKER_URL: "redis://:fruitcake@redis:6379/0"
@@ -43,8 +44,25 @@ services:
 =======
       - target: 8421
         published: 8421
+=======
+  example:
+    # Run the container normally
+    build:
+      # VERSION must be specified on the command line:
+      # e.g., --build-arg VERSION=0.0.1
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ECHO_MESSAGE=Hello World from docker compose!
+    image: cisagov/example
+    init: true
+    ports:
+      - mode: host
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5:compose.yml
         protocol: tcp
-        mode: host
+        published: "8421"
+        target: 8421
+    restart: "no"
     secrets:
       - source: quote_txt
         target: quote.txt
@@ -107,8 +125,13 @@ services:
 
   admiral-version:
     # Run the container to collect version information
+<<<<<<< HEAD:docker-compose.yml
     <<: *admiral-template
     deploy:
       mode: global
-    restart: "no"
+=======
     command: --version
+    image: cisagov/example
+    init: true
+>>>>>>> eafe720594319b9503bd5e6d7e5b59e61ff9d6d5:compose.yml
+    restart: "no"
