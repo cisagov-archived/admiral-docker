@@ -5,6 +5,7 @@ import os
 
 # Third-Party Libraries
 import pytest
+from semver import parse_version_info
 
 ENV_VAR = "ECHO_MESSAGE"
 ENV_VAR_VAL = "Hello World from docker compose!"
@@ -103,10 +104,16 @@ def test_log_version(dockerc, project_version, version_container):
 =======
     # make sure container exited if running test isolated
     dockerc.wait(version_container.id)
+<<<<<<< HEAD
     log_output = version_container.logs().strip()
 >>>>>>> 0d48ebd47a28a887868ea3093e675e95f3843561
     assert (
         log_output == project_version
+=======
+    log_version = parse_version_info(version_container.logs().strip())
+    assert log_version == parse_version_info(
+        project_version
+>>>>>>> 0a2e987b9184ecff808992e27f4898ddc7cc5d22
     ), f"Container version output to log does not match project version file {VERSION_FILE}"
 
 
